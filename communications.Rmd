@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(tidyverse)
+library(lubridate)
 ```
 
 
@@ -47,12 +48,14 @@ external_fri%>%
 Are there repeating numbers that made external calls?
 
 ```{r}
-external_fri%>%
-  group_by(from)%>%
+repeating_numbers <- external_fri%>%
+  group_by(from, location, Timestamp)%>%
   summarize(
     num = n()
   )%>%
-  arrange(desc(num))
+  mutate(timeblock = hour(Timestamp))
+
+ # arrange(from, Timestamp)
 ```
 
 time series of the external texts on Friday
