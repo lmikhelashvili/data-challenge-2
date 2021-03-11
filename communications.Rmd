@@ -10,14 +10,60 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-read_csv("~/Documents/Classes@Smith/CSC235/DC2/DC2-data/Communication Data/comm-data-Fri.csv")
+library(tidyverse)
+```
+
+
+```{r}
+data_Fri <- read_csv("comm-data-Fri.csv")
 ```
 
 ```{r}
-read_csv("~/Documents/Classes@Smith/CSC235/DC2/DC2-data/Communication Data/comm-data-Sat.csv")
+data_Sat<- read_csv("comm-data-Sat.csv")
 ```
 
 ```{r}
-read_csv("~/Documents/Classes@Smith/CSC235/DC2/DC2-data/Communication Data/comm-data-Sun.csv")
+data_Sun <- read_csv("comm-data-Sun.csv")
 ```
+
+## Filtering the external texts made on Friday
+
+```{r}
+external_fri <- data_Fri%>%
+  filter(to == "external" | from == "external")
+```
+
+### The number of external texts from each location
+
+```{r}
+external_fri%>%
+  group_by(location)%>%
+  summarize(
+    num = n()
+  )%>%
+  arrange(desc(num))
+```
+
+Are there repeating numbers that made external calls?
+
+```{r}
+external_fri%>%
+  group_by(from)%>%
+  summarize(
+    num = n()
+  )%>%
+  arrange(desc(num))
+```
+
+time series of the external texts on Friday
+
+```{r}
+
+```
+
+
+
+
+
+
 
