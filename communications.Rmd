@@ -27,34 +27,47 @@ data_Sat<- read_csv("comm-data-Sat.csv")
 data_Sun <- read_csv("comm-data-Sun.csv")
 ```
 
-## Filtering the external texts made on Friday
+#Friday
 
 ```{r}
 external_fri <- data_Fri%>%
-  filter(to == "external" | from == "external")
+  filter(to == "external" | from == "external")%>%
+  mutate(timeblock = hour(Timestamp))
 ```
 
 ### The number of external texts from each location
 
+For every time block, Wet Land has the most texts made from. 2nd most texts made from Tundra Land 8-17 time blocks; 17-22 Entry Corridor.
 ```{r}
-external_fri%>%
-  group_by(location)%>%
+timeblock_location <- external_fri%>%
+  group_by(location, timeblock)%>%
   summarize(
     num = n()
   )%>%
   arrange(desc(num))
 ```
 
+*What time blocks are the most popular?*
+17 is the most populated time block. That is when the shift from Tundra land to Entry Corridor happens. MOst of the texts are sent afternoon.
+
+```{r}
+external_fri%>%
+  group_by(timeblock)%>%
+  summarize(num = n())%>%
+  arrange(desc(num))
+```
+
+
 Are there repeating numbers that made external calls?
+
+
 
 ```{r}
 repeating_numbers <- external_fri%>%
-  group_by(from, location, Timestamp)%>%
+  group_by(from,timeblock, location)%>%
   summarize(
     num = n()
-  )%>%
-  mutate(timeblock = hour(Timestamp))
-
+  )
  # arrange(from, Timestamp)
 ```
 
