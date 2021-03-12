@@ -48,7 +48,7 @@ timeblock_location <- external_fri%>%
 ```
 
 *What time blocks are the most popular?*
-17 is the most populated time block. That is when the shift from Tundra land to Entry Corridor happens. MOst of the texts are sent afternoon.
+17 is the most populated time block. That is when the shift from Tundra land to Entry Corridor happens. Most of the texts are sent afternoon.
 
 ```{r}
 external_fri%>%
@@ -74,7 +74,8 @@ repeating_numbers <- external_fri%>%
 time series of the external texts on Friday
 
 ```{r}
-
+ggplot(data = external_fri , aes(timeblock))+
+  geom_bar(aes(x=reorder(timeblock,-count), fill = location ))
 ```
 
 
