@@ -78,7 +78,11 @@ time series of the external texts on Friday
 ```{r}
 ggplot(data = external_fri , aes(timeblock))+
   geom_bar(aes(timeblock, fill = location))+
-  scale_fill_brewer(palette = "Set2")
+  scale_fill_brewer(palette = "Set2")+
+  labs(
+    title = "Distribution of the External Texts sent from the park",
+    subtitle = "Number of external texts sent from which location in which time period"
+  )
 ```
 
 
