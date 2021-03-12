@@ -12,6 +12,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(tidyverse)
 library(lubridate)
+library(forcats)
+library(RColorBrewer)
 ```
 
 
@@ -75,7 +77,8 @@ time series of the external texts on Friday
 
 ```{r}
 ggplot(data = external_fri , aes(timeblock))+
-  geom_bar(aes(x=reorder(timeblock,-count), fill = location ))
+  geom_bar(aes(timeblock, fill = location))+
+  scale_fill_brewer(palette = "Set2")
 ```
 
 
