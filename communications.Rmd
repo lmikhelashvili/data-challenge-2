@@ -80,12 +80,67 @@ ggplot(data = external_fri , aes(timeblock))+
   geom_bar(aes(timeblock, fill = location))+
   scale_fill_brewer(palette = "Set2")+
   labs(
-    title = "Distribution of the External Texts sent from the park",
+    title = "Friday: Distribution of the External Texts sent from the park",
     subtitle = "Number of external texts sent from which location in which time period"
   )
 ```
 
 
+
+
+
+
+# Sunday
+
+```{r}
+external_sun <- data_Sun%>%
+  filter(to == "external" | from == "external")%>%
+  mutate(timeblock = hour(Timestamp))
+```
+
+### The number of external texts from each location
+
+```{r}
+timeblock_location_sun <- external_sun%>%
+  group_by(location, timeblock)%>%
+  summarize(
+    num = n()
+  )%>%
+  arrange(desc(num))
+```
+
+*What time blocks are the most popular?*
+11am is the most populated time block.
+
+```{r}
+external_sun%>%
+  group_by(timeblock)%>%
+  summarize(num = n())%>%
+  arrange(desc(num))
+```
+
+Are there repeating numbers that made external calls?
+
+```{r}
+repeating_numbers <- external_fri%>%
+  group_by(from,timeblock, location)%>%
+  summarize(
+    num = n()
+  )
+ # arrange(from, Timestamp)
+```
+
+time series of the external texts on Friday
+
+```{r}
+ggplot(data = external_sun , aes(timeblock))+
+  geom_bar(aes(timeblock, fill = location))+
+  scale_fill_brewer(palette = "Set2")+
+  labs(
+    title = "Sunday: Distribution of the External Texts sent from the park",
+    subtitle = "Number of external texts sent from which location in which time period"
+  )
+```
 
 
 
