@@ -86,8 +86,59 @@ ggplot(data = external_fri , aes(timeblock))+
 ```
 
 
+#Saturday
 
 
+```{r}
+external_sat <- data_Sat%>%
+  filter(to == "external" | from == "external")%>%
+  mutate(timeblock = hour(Timestamp))
+```
+
+### The number of external texts from each location
+
+-- add more description
+```{r}
+timeblock_location_sat <- external_sat%>%
+  group_by(location, timeblock)%>%
+  summarize(
+    num = n()
+  )%>%
+  arrange(desc(num))
+```
+
+*What time blocks are the most popular?*
+12 is the most populated time block. 16 is the time when Tundra land, Entry Corridor and Wet Land take turns to  have the most texts. Texts are sent through out the day.
+
+```{r}
+external_sat%>%
+  group_by(timeblock)%>%
+  summarize(num = n())%>%
+  arrange(desc(num))
+```
+
+Are there repeating numbers that made external calls?
+
+```{r}
+repeating_numbers <- external_fri%>%
+  group_by(from,timeblock, location)%>%
+  summarize(
+    num = n()
+  )
+ # arrange(from, Timestamp)
+```
+
+time series of the external texts on Saturday
+
+```{r}
+ggplot(data = external_sat , aes(timeblock))+
+  geom_bar(aes(timeblock, fill = location))+
+  scale_fill_brewer(palette = "Set2")+
+  labs(
+    title = "Saturday: Distribution of the External Texts sent from the park",
+    subtitle = "Number of external texts sent from which location in which time period"
+  )
+```
 
 
 # Sunday
@@ -120,17 +171,15 @@ external_sun%>%
 ```
 
 Are there repeating numbers that made external calls?
-
-
-#Saturday
 ```{r}
-repeating_numbers <- external_fri%>%
+repeating_numbers_sun <- external_sun%>%
   group_by(from,timeblock, location)%>%
   summarize(
     num = n()
   )
  # arrange(from, Timestamp)
 ```
+
 
 time series of the external texts on Friday
 
@@ -143,58 +192,6 @@ ggplot(data = external_sun , aes(timeblock))+
     subtitle = "Number of external texts sent from which location in which time period"
   )
 ```
-
-
-```{r}
-external_sat <- data_Sat%>%
-  filter(to == "external" | from == "external")%>%
-  mutate(timeblock = hour(Timestamp))
-```
-
-### The number of external texts from each location
-
-For every time block, Wet Land has the most texts made from. 2nd most texts made from Tundra Land 8-17 time blocks; 17-22 Entry Corridor.
-```{r}
-timeblock_location_sat <- external_sat%>%
-  group_by(location, timeblock)%>%
-  summarize(
-    num = n()
-  )%>%
-  arrange(desc(num))
-```
-
-*What time blocks are the most popular?*
-12 is the most populated time block. 16 is the time when Tundra land, Entry Corridor and Wet Land take turns to  have the most texts. Texts are sent through out the day.
-
-```{r}
-external_sat%>%
-  group_by(timeblock)%>%
-  summarize(num = n())%>%
-  arrange(desc(num))
-```
-
-
-Are there repeating numbers that made external calls?
-
-
-
-```{r}
-repeating_numbers <- external_fri%>%
-  group_by(from,timeblock, location)%>%
-  summarize(
-    num = n()
-  )
- # arrange(from, Timestamp)
-```
-
-time series of the external texts on Saturday
-
-```{r}
-ggplot(data = external_sat , aes(timeblock))+
-  geom_bar(aes(timeblock, fill = location))+
-  scale_fill_brewer(palette = "Set2")
-```
-
 
 
 
