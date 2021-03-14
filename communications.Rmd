@@ -29,7 +29,7 @@ data_Sat<- read_csv("comm-data-Sat.csv")
 data_Sun <- read_csv("comm-data-Sun.csv")
 ```
 
-#Friday
+# Friday
 
 ```{r}
 external_fri <- data_Fri%>%
@@ -86,7 +86,7 @@ ggplot(data = external_fri , aes(timeblock))+
 ```
 
 
-#Saturday
+# Saturday
 
 
 ```{r}
@@ -184,7 +184,7 @@ repeating_numbers_sun <- external_sun%>%
 ```
 
 
-time series of the external texts on Friday
+time series of the external texts on Sunday
 
 ```{r}
 ggplot(data = external_sun , aes(timeblock))+
