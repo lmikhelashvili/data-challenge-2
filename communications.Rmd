@@ -96,8 +96,9 @@ external_sat <- data_Sat%>%
 ```
 
 ### The number of external texts from each location
+For most of the time blocks, Wet Land has the most texts made from. At time block 12, it has 838 texts made.
 
--- add more description
+
 ```{r}
 timeblock_location_sat <- external_sat%>%
   group_by(location, timeblock)%>%
@@ -120,7 +121,7 @@ external_sat%>%
 Are there repeating numbers that made external calls?
 
 ```{r}
-repeating_numbers <- external_fri%>%
+repeating_numbers_sat <- external_sat%>%
   group_by(from,timeblock, location)%>%
   summarize(
     num = n()
@@ -128,8 +129,9 @@ repeating_numbers <- external_fri%>%
  # arrange(from, Timestamp)
 ```
 
-time series of the external texts on Saturday
+There were 10 texts sent from the same person, 878 on Saturday. The number of texts were sent evenly to locations: Kiddie Land, Tundra Land, Wet Land. 
 
+time series of the external texts on Saturday
 ```{r}
 ggplot(data = external_sat , aes(timeblock))+
   geom_bar(aes(timeblock, fill = location))+
@@ -150,7 +152,7 @@ external_sun <- data_Sun%>%
 ```
 
 ### The number of external texts from each location
-
+Wet Land is the most dominant location which has the most texts. Time block 11 in Wet Land has the most texts sent which was 5364. This is extemely high compared to Friday and Saturday.
 ```{r}
 timeblock_location_sun <- external_sun%>%
   group_by(location, timeblock)%>%
@@ -171,6 +173,7 @@ external_sun%>%
 ```
 
 Are there repeating numbers that made external calls?
+878 and 436 sent the most texts.
 ```{r}
 repeating_numbers_sun <- external_sun%>%
   group_by(from,timeblock, location)%>%
