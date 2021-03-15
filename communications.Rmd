@@ -152,7 +152,7 @@ external_sun <- data_Sun%>%
 ```
 
 ### The number of external texts from each location
-Wet Land is the most dominant location which has the most texts. Time block 11 in Wet Land has the most texts sent which was 5364. This is extemely high compared to Friday and Saturday.
+Wet Land is the most dominant location which has the most texts. Time block 11 in Wet Land has the most texts sent which was 5364. This is extremely high compared to Friday and Saturday.
 ```{r}
 timeblock_location_sun <- external_sun%>%
   group_by(location, timeblock)%>%
