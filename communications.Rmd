@@ -290,16 +290,15 @@ most active poeple on sunday
 
 ```{r}
 new_sun <- park_movement_Sun %>% 
-  filter(id == "378256" | id == "297330" | id == "1323905" | id == "1906865" | id == "1784014" ) %>% 
-  filter(Timestamp >= "2014-6-08 11:30:00" & Timestamp <= "2014-6-08 12:30:00")
+  filter(id == "378256" | id == "1159870" | id == "1784014" )
+  filter(Timestamp >= "2014-6-08 11:00:00" & Timestamp <= "2014-6-08 12:30:00")
 # id=="2057828" | id == "1159870" | id == "1624317" | id == "1713869" | id == "1729147"
 
 ```
 
 ```{r}
-ggplot(data = new_sun, aes(x = X, y = Y, color = factor(id)))+
-  geom_point()+
-  geom_label()
+ggplot(data = new_sun, aes(x = X, y = Y, shape = factor(id), color = Timestamp))+
+  geom_point()
 ```
 
 
