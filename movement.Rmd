@@ -12,17 +12,32 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(tidyverse)
+library(ggpubr)
+library(png)
 ```
 
 ```{r}
 movement_fri <- read_csv("park-movement-Fri.csv")
-movement_sat <- read_csv("park-movement-Sat.csv")
-movement_sun <- read_csv("park-movement-Sun.csv")
-
 ```
 
 
+```{r}
+movement_sat <- read_csv("park-movement-Sat.csv")
+```
+
+```{r}
+movement_sun <- read_csv("park-movement-Sun.csv")
+```
+
+```{r}
+img <- readPNG("map2.png")
+```
 
 
+```{r}
+ggplot(movement_sun, aes(x = X, y = Y))+
+  background_image(img)+
+  geom_point()
+```
 
 
