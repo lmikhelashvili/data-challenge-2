@@ -198,13 +198,58 @@ ggplot(data = external_sun , aes(timeblock))+
 
 Most active people at 11am timeblock sending to **external numbers only**
 
+Top 5 most active id's in timeblock 11am:
+
 ```{r}
 external_sun%>%
   filter(timeblock == 11)%>%
   group_by(from)%>%
   summarize(num_texts = n())%>%
-  arrange(desc(num_texts))
+  arrange(desc(num_texts))%>%
+  head(5)
 ```
+
+
+All of them are sending texts from 11:45am up to 11:59am. Then they stop sending the texts after 12pm. They have not even sent any texts in 10am timeblock either. This seems very suspicious.
+
+```{r}
+id_378256 <- external_sun%>%
+  filter(timeblock == 12 | timeblock == 11 | timeblock == 10)%>%
+  filter(from == 378256)
+id_378256
+```
+
+```{r}
+id_297330 <-external_sun%>%
+  filter(timeblock == 12 | timeblock == 11| timeblock == 10)%>%
+  filter(from == 297330)
+id_297330 
+```
+
+```{r}
+id_1323905 <- external_sun%>%
+  filter(timeblock == 12 | timeblock == 11| timeblock == 10)%>%
+  filter(from == 1323905)
+id_1323905
+```
+
+```{r}
+id_1906865 <- external_sun%>%
+    filter(timeblock == 12 | timeblock == 11| timeblock == 10)%>%
+  filter(from == 1906865)
+id_1906865
+```
+
+```{r}
+id_1784014 <- external_sun%>%
+    filter(timeblock == 12 | timeblock == 11| timeblock == 10)%>%
+  filter(from == 1784014)
+id_1784014
+```
+
+
+
+total texts made surge at 12pm timeblock
 
 ```{r}
 total_sun <- data_Sun%>%
@@ -213,7 +258,6 @@ total_sun <- data_Sun%>%
   summarize(num_texts_total = n())
 ```
 
-total texts made surge at 12pm timeblock
 ```{r}
 ggplot(data = total_sun, aes(x = timeblock, y = num_texts_total))+
   geom_col(aes(fill = location))+
