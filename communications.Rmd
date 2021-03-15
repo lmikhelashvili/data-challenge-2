@@ -206,7 +206,7 @@ external_sun%>%
   group_by(from)%>%
   summarize(num_texts = n())%>%
   arrange(desc(num_texts))%>%
-  head(5)
+  head(10)
 ```
 
 
@@ -299,13 +299,13 @@ new_sun <- park_movement_Sun %>%
 ```{r}
 ggplot(data = new_sun, aes(x = X, y = Y, color = factor(id)))+
   geom_point()+
-  geom_text(label = Timestamp)
+  geom_label()
 ```
 
 
-378256 and 1784014 talking most during the 11 am timeblock
+378256 and 1784014 and 1159870 talking most during the 11 am timeblock
 ```{r}
 hhh <- data_Sun%>%
-  filter((from == "378256" |from == "297330" | from == "1323905" | from == "1906865" | from == "1784014" ) & (to == "297330" | to == "1323905" | to == "1906865" | to == "1784014" ))
+  filter((from == "378256" |from == "297330" | from == "1323905" | from == "1906865" | from == "1784014" | from == "2057828"|from == "1159870" |from == "1624317" |from == "1713869" |from == "1729147") & (to == "297330" | to == "1323905" | to == "1906865" | to == "1784014" |to == "2057828"|to == "1159870" |to == "1624317" |to == "1713869" |to == "1729147"))
 ```
 
