@@ -14,6 +14,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(ggpubr)
 library(png)
+library(gganimate)
+theme_set(theme_bw())
 ```
 
 ```{r}
@@ -40,4 +42,35 @@ ggplot(movement_sun, aes(x = X, y = Y))+
   geom_point()
 ```
 
+
+```{r}
+new_sun <- movement_sun %>% 
+  filter(id == "378256" | id == "1159870" | id == "1784014" )
+```
+
+```{r}
+p <- ggplot(data = new_sun, aes(x = X, y = Y, color = factor(id)))+
+  geom_point()
+p
+```
+
+```{r}
+p + 
+  transition_components(time = time(Timestamp))+
+  labs(title = "Time: {frame_time}")
+  
+```
+
+```{r}
+library(plotly)
+
+my_p <- new_sun %>%
+  plot_ly(
+    x = ~X,
+    y = ~Y,
+    color = ~id,
+    frame = ~time(Timestamp),
+    type
+  )
+```
 
