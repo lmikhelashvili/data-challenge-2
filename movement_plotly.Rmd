@@ -1,0 +1,68 @@
+---
+title: "movement"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+library(png)
+library(gganimate)
+```
+
+```{r}
+movement_fri <- read_csv("park-movement-Fri.csv")
+```
+
+
+```{r}
+movement_sat <- read_csv("park-movement-Sat.csv")
+```
+
+```{r}
+movement_sun <- read_csv("park-movement-Sun.csv")
+```
+
+```{r}
+img <- readPNG("map2.png")
+```
+
+
+```{r}
+ggplot(movement_sun, aes(x = X, y = Y))+
+  background_image(img)+
+  geom_point()
+```
+
+```{r}
+new_sun <- movement_sun %>% 
+  filter(id == "378256" | id == "1159870" | id == "1784014" )
+```
+
+```{r}
+library(plotly)
+library(lubridate)
+```
+
+
+```{r}
+
+p<- new_sun%>%
+  plot_ly(
+    x = ~X,
+    y = ~Y,
+    color = ~factor(id),
+    frame = ~hour(Timestamp),
+    type = 'scatter',
+    mode = 'markers'
+  )
+p
+```
+
